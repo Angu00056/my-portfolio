@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Home Menu -->
+    <div id="menu">
+        <h1>🌲 Interactive Adventure</h1>
+        <button id="startBtn">Start Story</button>
+        <button id="settingsBtn">Settings</button>
+    </div>
+
+    <!-- Settings -->
+    <div id="settings" style="display: none;">
+        <h2>Settings</h2>
+        <button id="backBtn">Back</button>
+    </div>
+
+    <!-- Game -->
+    <div id="game" style="display: none;">
+        <div id="storycontent">
+            <img id="sceneimage" src="images/shirts.jpg" alt="Story Scene">
+        </div>
+
+        <div class="container">
+            <h1>🌲 Interactive Adventure</h1>
+            <p>
+                ❤️ Health: <span id="health">100</span>
+                💵 Money: <span id="money">20</span>
+                😎 Confidence: <span id="confidence">100</span>
+            </p>
+
+            <div id="story">
+                You need to choose a shirt to wear.
+            </div>
+
+            <div id="choices">
+                <button id="choice1">Red Shirt</button>
+                <button id="choice2">Blue Shirt</button>
+                <button id="choice3">Yellow Shirt</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
