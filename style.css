@@ -4,13 +4,26 @@
     box-sizing: border-box;
 }
 
+:root {
+    --bg-start: #1b2735;
+    --bg-end: #090a0f;
+    --text-color: #ffffff;
+    --panel-bg: rgba(255,255,255,0.08);
+    --panel-bg-strong: rgba(255,255,255,0.06);
+    --story-bg: rgba(255,255,255,0.06);
+    --shadow: rgba(0, 0, 0, 0.4);
+    --accent: #4CAF50;
+    --accent-hover: #45a049;
+    --accent-text: #ffd966;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #d7d7d7;
     background-size: cover;
     background-position: center;
-    background-repeat:repeat
+    background-repeat: repeat;
 }
 
 header {
@@ -296,32 +309,21 @@ section.section-highlight {
     object-fit: contain;
     border-radius: 8px;
     display: block;}
-/* ============= GAME STYLES ============= */
-:root{
-    --bg-start:#1b2735;
-    --bg-end:#090a0f;
-    --text-color:#ffffff;
-    --panel-bg:rgba(255,255,255,0.08);
-    --panel-bg-strong:rgba(255,255,255,0.06);
-    --story-bg:rgba(255,255,255,0.06);
-    --shadow:rgba(0, 0, 0, 0.4);
-    --accent:#4CAF50;
-    --accent-hover:#45a049;
-    --accent-text:#ffd966;
+
+body.light-mode {
+    --bg-start: #f4f7fb;
+    --bg-end: #dfe7f2;
+    --text-color: #1f2937;
+    --panel-bg: rgba(255,255,255,0.9);
+    --panel-bg-strong: rgba(255,255,255,0.95);
+    --story-bg: rgba(255,255,255,0.8);
+    --shadow: rgba(15, 23, 42, 0.16);
+    --accent: #3b82f6;
+    --accent-hover: #2563eb;
+    --accent-text: #b45309;
 }
 
-body.light-mode{
-    --bg-start:#f4f7fb;
-    --bg-end:#dfe7f2;
-    --text-color:#1f2937;
-    --panel-bg:rgba(255,255,255,0.9);
-    --panel-bg-strong:rgba(255,255,255,0.95);
-    --story-bg:rgba(255,255,255,0.8);
-    --shadow:rgba(15, 23, 42, 0.16);
-    --accent:#3b82f6;
-    --accent-hover:#2563eb;
-    --accent-text:#b45309;
-}
+/* ============= GAME STYLES ============= */
 
 #gameScreen {
     width: 100%;
