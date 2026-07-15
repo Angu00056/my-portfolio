@@ -4,13 +4,17 @@ const game = document.getElementById("game");
 
 const startBtn = document.getElementById("startBtn");
 const settingsBtn = document.getElementById("settingsBtn");
+const lightToggle = document.getElementById("lightToggle");
 const backBtn = document.getElementById("backBtn");
-
+const gameBackBtn = document.getElementById("gameBackBtn");
+const saveBtn = document.getElementById("saveBtn");
+const resetBtn = document.getElementById("resetBtn");
 
 const story = document.getElementById("story");
 const choice1 = document.getElementById("choice1"); 
 const choice2 = document.getElementById("choice2");
 const choice3 = document.getElementById("choice3");
+const choiceButtons = [choice1, choice2, choice3];
 const choices = document.getElementById("choices");
 const sceneimage = document.getElementById("sceneimage");
 const restart = document.getElementById("restart");
@@ -22,10 +26,32 @@ choice1.addEventListener("click", () => makeChoice(0));
 choice2.addEventListener("click", () => makeChoice(1));
 choice3.addEventListener("click", () => makeChoice(2));
 
+saveBtn.addEventListener("click", () => saveProgress());
+resetBtn.addEventListener("click", () => {
+    if (confirm("Are you sure you want to reset all progress?")) {
+        resetProgress();
+    }
+});
+
+window.addEventListener("load", () => {
+    updateStartButtonLabel();
+});
+
+if (lightToggle) {
+    lightToggle.addEventListener("change", () => {
+        document.body.classList.toggle("light-mode", lightToggle.checked);
+    });
+}
+
 let currentScene = "start";
 let health = 100;
 let money = 20;
 let confidence = 100;
+
+function updateStartButtonLabel() {
+    const hasSavedProgress = Boolean(localStorage.getItem("gameProgress"));
+    startBtn.textContent = hasSavedProgress ? "Continue Game" : "Start Game";
+}
 
 const scenes = {
     start: {
@@ -45,9 +71,9 @@ const scenes = {
         },
         sceneimage: "images/redshirt.jpg",
         choices: [
-            { text: "Eat", next: "eat" },
-            { text: "Go Outside", next: "outside" },
-            { text: "Read", next: "read" }
+            { text: "Eat", next: "eat", requires: { health: 90 } },
+            { text: "Go Outside", next: "outside", requires: { confidence: 105 } },
+            { text: "Read", next: "read"}
         ]
     },
 
@@ -58,9 +84,9 @@ const scenes = {
         },
         sceneimage: "images/blueshirt.jpg",
         choices: [
-            { text: "Eat", next: "eat" },
-            { text: "Go Outside", next: "outside" },
-            { text: "Read", next: "read" }
+            { text: "Eat", next: "eat", requires: { health: 90 } },
+            { text: "Go Outside", next: "outside", requires: { confidence: 105 } },
+            { text: "Read", next: "read",}
         ]
     },
 
@@ -71,17 +97,18 @@ const scenes = {
         },
         sceneimage: "images/yellowshirt.jpg",
         choices: [
-            { text: "Eat", next: "eat" },
-            { text: "Go Outside", next: "outside" },
-            { text: "Read", next: "read" }
+            { text: "Eat", next: "eat", requires: { health: 90 } },
+            { text: "Go Outside", next: "outside", requires: { confidence: 105 } },
+            { text: "Read", next: "read"}
         ]
     },
 
     outside: {
         text: "Sun shining, grass greening, birds chirping, it is a nice day out. What should you do next?",
         effects: {
-            
+        
         },
+        seneimage: "images/outside.jpg",
         choices:  [
             { text: "Go back inside", next: "back inside"},
             { text: "Go for a drive", next: "drive"},
@@ -90,22 +117,34 @@ const scenes = {
     },
 
     eat: {
-        text: "What do you want to eat?",
+        text: "You want to eat something yummy and nutritious. What do you eat?",
         choices: [
             { text: "Eggs", next: "eggs" },
             { text: "Pancakes", next: "pancakes" },
             { text: "Cereal", next: "cereal" }
         ]
+    },
+
+    read: {
+        text: "You decide to read a novel. What genre do you prefer right now?",
+        choices: [
+            { text: "Romance", next: "romance" },
+            { text: "Dark Thriller", next: "darkthriller" },
+            { text: "Fantasy", next: "fantasy" }
+        ]
     }
 };
 
 startBtn.addEventListener("click", () => {
-
     showScreen(game);
 
-    showScene("start");
-    updateStats();
-
+    const savedState = localStorage.getItem("gameProgress");
+    if (savedState) {
+        loadProgress();
+    } else {
+        showScene("start");
+        updateStats();
+    }
 });
 
 settingsBtn.addEventListener("click", () => {
@@ -120,16 +159,29 @@ backBtn.addEventListener("click", () => {
 
 });
 
-restart.addEventListener("click", () => {
+gameBackBtn.addEventListener("click", () => {
+    const shouldSave = confirm("Would you like to save your progress before exiting?");
 
-    health = 100;
-    money = 20;
-    confidence = 100;
+    if (shouldSave) {
+        saveProgress();
+    }
 
-    updateStats();
-    showScene("start");
-
+    showScreen(menu);
 });
+
+if (restart) {
+    restart.addEventListener("click", () => {
+
+        health = 100;
+        money = 20;
+        confidence = 100;
+
+        updateStats();
+        showScene("start");
+
+    });
+}
+
 function showScreen(screen) {
 
     menu.style.display = "none";
@@ -140,61 +192,98 @@ function showScreen(screen) {
 
 }
 
+function isChoiceAvailable(choice) {
+    if (typeof choice?.enabled === "function") {
+        return choice.enabled({ health, money, confidence, currentScene });
+    }
 
-function showScene(sceneName) {
+    if (typeof choice?.condition === "function") {
+        return choice.condition({ health, money, confidence, currentScene });
+    }
 
-    currentScene = sceneName;
+    if (choice?.requires) {
+        return Object.entries(choice.requires).every(([stat, requiredValue]) => {
+            const currentValue = { health, money, confidence }[stat];
+            return typeof currentValue === "number" && currentValue >= requiredValue;
+        });
+    }
 
-    const scene = scenes[sceneName];
-
-    story.textContent = scene.text;
-    sceneimage.src = scene.sceneimage || "images/shirts.jpg";
-
-    choice1.textContent = scene.choices[0].text;
-    choice2.textContent = scene.choices[1].text;
-    choice3.textContent = scene.choices[2].text;
-
+    return true;
 }
 
-const choice = scene.choices[choiceIndex];
-
-function showScene(sceneName) {
+function showScene(sceneName, applyEffects = true) {
 
     currentScene = sceneName;
 
     const scene = scenes[sceneName];
+    const previousStats = { health, money, confidence };
 
     // Apply stat changes
-    if (scene.effects) {
+    if (applyEffects && scene.effects) {
 
-        if (scene.effects.health) {
+        if (Object.prototype.hasOwnProperty.call(scene.effects, "health")) {
             health += scene.effects.health;
         }
 
-        if (scene.effects.money) {
+        if (Object.prototype.hasOwnProperty.call(scene.effects, "money")) {
             money += scene.effects.money;
         }
 
-        if (scene.effects.confidence) {
+        if (Object.prototype.hasOwnProperty.call(scene.effects, "confidence")) {
             confidence += scene.effects.confidence;
         }
-
-        updateStats();
     }
 
-    story.textContent = scene.text;
-    sceneimage.src = scene.sceneimage || "images/shirts.jpg";
+    updateStats(previousStats);
 
-    choice1.textContent = scene.choices[0].text;
-    choice2.textContent = scene.choices[1].text;
-    choice3.textContent = scene.choices[2].text;
+    // Fade out animation
+    story.classList.add("fade-out");
+    sceneimage.classList.add("fade-out");
+
+    // Update content after fade out completes
+    setTimeout(() => {
+        story.textContent = scene.text;
+        sceneimage.src = scene.sceneimage || "images/shirts.jpg";
+
+        choiceButtons.forEach((button, index) => {
+            const choice = scene.choices[index];
+
+            if (!choice) {
+                button.style.display = "none";
+                button.disabled = true;
+                button.textContent = "";
+                return;
+            }
+
+            button.style.display = "inline-block";
+            button.disabled = !isChoiceAvailable(choice);
+            button.textContent = choice.text;
+        });
+
+        // Fade in animation
+        story.classList.remove("fade-out");
+        sceneimage.classList.remove("fade-out");
+        story.classList.add("fade-in");
+        sceneimage.classList.add("fade-in");
+
+        // Remove fade-in class after animation completes
+        setTimeout(() => {
+            story.classList.remove("fade-in");
+            sceneimage.classList.remove("fade-in");
+        }, 400);
+    }, 200);
 }
 
 function makeChoice(choiceIndex) {
 
     const scene = scenes[currentScene];
+    const choice = scene.choices[choiceIndex];
 
-    const nextScene = scene.choices[choiceIndex].next;
+    if (!choice || !isChoiceAvailable(choice)) {
+        return;
+    }
+
+    const nextScene = choice.next;
 
     showScene(nextScene);
 
@@ -203,9 +292,67 @@ function makeChoice(choiceIndex) {
 function restartStory() {
     showScene("start");
 }
-function updateStats() {
-    healthDisplay.textContent = health;
-    moneyDisplay.textContent = money;
-    confidenceDisplay.textContent = confidence;
+
+function flashStat(display, value, previousValue) {
+    display.textContent = value;
+
+    if (previousValue === undefined || value === previousValue) {
+        display.classList.remove("flash-up", "flash-down");
+        return;
+    }
+
+    display.classList.remove("flash-up", "flash-down");
+    void display.offsetWidth;
+    display.classList.add(value > previousValue ? "flash-up" : "flash-down");
+
+    setTimeout(() => {
+        display.classList.remove("flash-up", "flash-down");
+    }, 500);
 }
+
+function updateStats(previousStats = null) {
+    const previous = previousStats || {};
+    flashStat(healthDisplay, health, previous.health);
+    flashStat(moneyDisplay, money, previous.money);
+    flashStat(confidenceDisplay, confidence, previous.confidence);
+}
+
+function saveProgress() {
+    const gameState = {
+        currentScene: currentScene,
+        health: health,
+        money: money,
+        confidence: confidence
+    };
+    localStorage.setItem("gameProgress", JSON.stringify(gameState));
+    updateStartButtonLabel();
+    alert("Progress saved!");
+}
+
+function loadProgress() {
+    const savedState = localStorage.getItem("gameProgress");
+    if (savedState) {
+        const gameState = JSON.parse(savedState);
+        currentScene = gameState.currentScene;
+        health = gameState.health;
+        money = gameState.money;
+        confidence = gameState.confidence;
+        updateStats();
+        showScene(currentScene, false);
+    }
+}
+
+function resetProgress() {
+    health = 100;
+    money = 20;
+    confidence = 100;
+    currentScene = "start";
+    localStorage.removeItem("gameProgress");
+    updateStartButtonLabel();
+    updateStats();
+    showScene("start");
+    alert("Progress reset!");
+}
+
 updateStats();
+updateStartButtonLabel();

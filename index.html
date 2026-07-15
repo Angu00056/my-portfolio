@@ -17,31 +17,42 @@
     <!-- Settings -->
     <div id="settings" style="display: none;">
         <h2>Settings</h2>
+        <label for="lightToggle">Toggle Light Mode </label>
+        <input type="checkbox" id="lightToggle">
         <button id="backBtn">Back</button>
     </div>
 
     <!-- Game -->
     <div id="game" style="display: none;">
-        <div id="storycontent">
-            <img id="sceneimage" src="images/shirts.jpg" alt="Story Scene">
-        </div>
+        <div class="game-shell">
+            <h1 class="game-title">🌲 Interactive Adventure</h1>
 
-        <div class="container">
-            <h1>🌲 Interactive Adventure</h1>
-            <p>
-                ❤️ Health: <span id="health">100</span>
-                💵 Money: <span id="money">20</span>
-                😎 Confidence: <span id="confidence">100</span>
-            </p>
-
-            <div id="story">
-                You need to choose a shirt to wear.
+            <div id="storycontent">
+                <img id="sceneimage" src="images/shirts.jpg" alt="Story Scene">
             </div>
 
-            <div id="choices">
-                <button id="choice1">Red Shirt</button>
-                <button id="choice2">Blue Shirt</button>
-                <button id="choice3">Yellow Shirt</button>
+            <div class="container">
+                <p>
+                    ❤️ Health: <span id="health">100</span>
+                    💵 Money: <span id="money">20</span>
+                    😎 Confidence: <span id="confidence">100</span>
+                </p>
+
+                <div id="story">
+                    You need to choose a shirt to wear.
+                </div>
+
+                <div id="choices">
+                    <button id="choice1">Red Shirt</button>
+                    <button id="choice2">Blue Shirt</button>
+                    <button id="choice3">Yellow Shirt</button>
+                </div>
+
+                <div class="button-group">
+                    <button id="saveBtn">💾 Save Progress</button>
+                    <button id="resetBtn">🔄 Reset Progress</button>
+                </div>
+                <button id="gameBackBtn" type="button">⬅ Back to Menu</button>
             </div>
         </div>
     </div>
