@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andre's Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!--Homepage-->
+<div id="homepage">
+    <header>
+        <div class="profile-img">
+            <img src="image/peashooter.jpg" alt="Profile Picture" class="profile-pic">
+        </div>
+
+        <div class="header-text">
+            <h1>Andre Guzman</h1>
+            <p>Student | Aspiring Developer</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#mission statement">Mission Statement</a>
+        <a href="#values">Values</a>
+        <a href="#contact">Contact</a>
+        <a href="#resume">Resume</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#funstuff-section">Fun Stuff</a>
+    </nav>
+   
+    <section id="mission statement">
+        <h2>Mission Statement</h2>
+        <p>
+            My mission is to learn and grow as a developer, contributing positively to the tech community.
+        </p>
+    </section>
+
+    <section id="values">
+        <h2>Core Values</h2>
+        <div class="value-card">
+            <h3>Creativity</h3>
+            <p>I value creative thinking and approach problems with innovative solutions.</p>
+        </div>
+
+        <div class="value-card">
+            <h3>Education</h3>
+            <p>I value continuous learning and staying updated with the latest technologies and best practices.</p>
+        </div>
+
+        <div class="value-card">
+            <h3>Family</h3>
+            <p>I value the support and love of my family, which motivates me to be the best version of myself.</p>
+        </div>
+    </section>
+
+    <section id="funstuff-section">
+        <button id="FunstuffButton">Fun Stuff</button>
+    </section>
+
+    <section id="resume">
+        <h2>Resume</h2>
+        <a href="Resume (1).pdf" target="_blank" class="resume-btn">View My Resume</a>
+    </section>
+
+    <section id="testimonials">
+    <h2>Testimonials</h2>
+
+    <div class="testimonials-container">
+
+        <div class="testimonial-card">
+            <p>
+                "Andre is hardworking and always puts effort into his projects."
+            </p>
+            <h4>↓</h4>
+        </div>
+
+        <div class="testimonial-card">
+            <p>
+                "Great teammate who communicates well and helps others."
+            </p>
+            <h4>↓</h4>
+        </div>
+
+        <div class="testimonial-card">
+            <p>
+                "Consistently produces quality work and meets deadlines."
+            </p>
+        
+        </div>
+
+    </div>
+ </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: ag3339114@gmail.com</p>
+        <button onclick="showMessage()">Say Hi</button>
+        <p id="message"></p>
+    </section>
+    <footer>
+        <p>&copy; 2026 Andre Guzman</p>
+    </footer>
+</div>
+
+
+
+<!--Funstuff-->
+<div id="Funstuff" style="display: none;">
+    <section>
+        <h2>Fun Stuff</h2>
+    </section>
+    <section>
+        <p class="Funstuff-p">Here are some fun things I enjoy:</p>
+        <ul>
+            <li>Creating my own projects ⚙️</li>
+            <li>Watching Youtube 📺</li>
+            <li>Listening to music 🎵</li>
+            <li>Creating my own stories 📖</li>
+    </ul>
+    </section>
+    <section>
+        <p class="Funstuff-p"> Top three favorite foods / meals:</p>
+        <div class="food-list">
+            <div class="food-item">
+                <h3>1. Papaya</h3>
+                <img src="image/papaya.jpg" alt="Papaya" class="food-img">
+            </div>
+            <div class="food-item">
+                <h3>2. Rigatoni Pasta</h3>
+                <img src="image/rigatoni.jpg" alt="Pasta" class="food-img">
+            </div>
+            <div class="food-item">
+                <h3>3. Chocolate</h3>
+                <img src="image/chocolate.jpg" alt="Chocolate" class="food-img">
+            </div>
+    </section>
+    <section>
+        <p class="Funstuff-Games"> Top three favorite games:</p>
+        <div class="games-list">
+            <div class="game-item">
+                <h3>1. Plants vs. Zombies</h3>
+                <img src="image/Pvz.jpg" alt="Plants vs. Zombies" class="game-img">
+            </div>
+            <div class="game-item">
+                <h3>2. The Legend of Zelda: Breath of the Wild</h3>
+                <img src="image/Botw.jpg" alt="The Legend of Zelda" class="game-img">
+            </div>
+            <div class="game-item">
+                <h3>3. Minecraft</h3>
+                <img src="image/minecraft.jpeg" alt="Minecraft" class="game-img">
+            </div>
+    </section>
+    
+    <section>
+        <p class="Funstuff-books"> Top three favorite books:</p>
+        <div class="books-list">
+            <div class="book-item">
+                <h3>1. The Silent Patient</h3>
+                <img src="image/Thesilentpatient.jpg" alt="The Silent Patient" class="book-img">
+            </div>
+            <div class="book-item">
+                <h3>2. I'm Thinking of Ending Things</h3>
+                <img src="image/Imthinking.jpg" alt="I'm Thinking of Ending Things" class="book-img">
+            </div>
+            <div class="book-item">
+                <h3>3. Gone Girl</h3>
+                <img src="image/Gonegirl.jpg" alt="Gone Girl" class="book-img">
+            </div>
+    </section>
+    
+    <section id="back-button-section">
+        <button id="backButton">Back to Homepage</button>
+    </section>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
