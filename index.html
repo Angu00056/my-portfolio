@@ -26,15 +26,22 @@
         <a href="#values">Values</a>
         <a href="#contact">Contact</a>
         <a href="#resume">Resume</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#funstuff-section">Fun Stuff</a>
+        <a href="#skills">Skills</a>
     </nav>
    
     <section id="mission statement">
         <h2>Mission Statement</h2>
         <p>
-            My mission is to learn and grow as a developer, contributing positively to the tech community.
+            My mission is to learn and grow as a beginner developer, contributing positively to the tech community.
         </p>
+    </section>
+
+    <section id="about-me">
+        <h2>About Me</h2>
+        <p>
+            I am a high schooler, heading into sophomore year, with a passion in creative writing and art.
+        </p>
+
     </section>
 
     <section id="values">
@@ -55,38 +62,28 @@
         </div>
     </section>
 
-    <section id="funstuff-section">
-        <button id="FunstuffButton">Fun Stuff</button>
-        <button id="InteractiveStoryButton">Play Interactive Story</button>
-    </section>
 
-    <section id="resume">
-        <h2>Resume</h2>
-        <a href="Resume (1).pdf" target="_blank" class="resume-btn">View My Resume</a>
-    </section>
 
-    <section id="testimonials">
-    <h2>Testimonials</h2>
+    <section id="skills">
+    <h2>Skills</h2>
 
-    <div class="testimonials-container">
+    <div class="skills-container">
 
-        <div class="testimonial-card">
+        <div class="skills-card">
             <p>
-                "Andre is hardworking and always puts effort into his projects."
+                <h3>HTML</h3>
             </p>
-            <h4>↓</h4>
         </div>
 
-        <div class="testimonial-card">
+        <div class="skills-card">
             <p>
-                "Great teammate who communicates well and helps others."
+                <h3>JavaScript</h3>
             </p>
-            <h4>↓</h4>
         </div>
 
-        <div class="testimonial-card">
+        <div class="skills-card">
             <p>
-                "Consistently produces quality work and meets deadlines."
+                <h3>CSS</h3>
             </p>
         
         </div>
@@ -94,14 +91,32 @@
     </div>
  </section>
 
+<section id="resume">
+    <h2>Resume</h2> 
+    <a href="Resume (2).pdf" target="_blank" class="resume-btn">View My Resume</a> 
+</section>
+
+ <section id="blogpost">
+    <h2>Blog Post</h2>
+
+    <a href="My Blog Post (1).pdf"
+       target="_blank"
+       class="blogpost-btn">
+        View My Blog Post
+    </a>
+</section>
+
+
+
     <section id="contact">
         <h2>Contact</h2>
         <p>Email: ag3339114@gmail.com</p>
-        <button onclick="showMessage()">Say Hi</button>
-        <p id="message"></p>
+        <p>GitHub: https://github.com/Angu00056</p>
+        <button id="message" onclick="showMessage()">Say Hi</button>
+        <p id="message" style="display: none;">Thank you for visiting my website!</p>
     </section>
     <footer>
-        <p>&copy; 2026 Andre Guzman</p>
+        <p>&copy; 2026 Andre Guzman | Choicest Fruit</p>
     </footer>
 </div>
 
@@ -169,75 +184,11 @@
                 <h3>3. Gone Girl</h3>
                 <img src="image/Gonegirl.jpg" alt="Gone Girl" class="book-img">
             </div>
-            <div class="book-item">
-                <h3>4. The Great Gatsby</h3>
-                <img src="image/Thegreatgatsby.jpg" alt="The Great Gatsby" class="book-img">
-            </div>
+        
     </section>
     
     <section id="back-button-section">
         <button id="backButton">Back to Homepage</button>
     </section>
 </div>
-
-<!-- Interactive Story Game -->
-<div id="gameScreen" style="display: none;">
-    <!-- Home Menu -->
-    <div id="menu">
-        <h1>🌲 Interactive Adventure</h1>
-        <button id="startBtn">Start Story</button>
-        <button id="settingsBtn">Settings</button>
-    </div>
-
-    <!-- Settings -->
-    <div id="settings" style="display: none;">
-        <h2>Settings</h2>
-        <label for="lightToggle">Toggle Light Mode </label>
-        <input type="checkbox" id="lightToggle">
-        <button id="backBtn">Back</button>
-    </div>
-
-    <!-- Game -->
-    <div id="game" style="display: none;">
-        <div class="game-shell">
-            <h1 class="game-title">🌲 Interactive Adventure</h1>
-
-            <div id="storycontent">
-                <img id="sceneimage" src="images/shirts.jpg" alt="Story Scene">
-            </div>
-
-            <div class="container">
-                <p>
-                    ❤️ Health: <span id="health">100</span>
-                    💰 Money: <span id="money">20</span>
-                    😊 Confidence: <span id="confidence">100</span>
-                </p>
-
-                <div id="story">
-                    You need to choose a shirt to wear.
-                </div>
-
-                <div id="choices">
-                    <button id="choice1">Red Shirt</button>
-                    <button id="choice2">Blue Shirt</button>
-                    <button id="choice3">Yellow Shirt</button>
-                </div>
-
-                <div class="button-group">
-                    <button id="saveBtn">💾 Save Progress</button>
-                    <button id="resetBtn">🔄 Reset Progress</button>
-                </div>
-                <button id="gameBackBtn" type="button">← Back to Menu</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="gameMenuButton">
-        <button id="backToPortfolioBtn">Back to Portfolio</button>
-    </div>
-</div>
-
 <script src="script.js"></script>
-
-</body>
-</html>
